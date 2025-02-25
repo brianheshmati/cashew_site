@@ -1153,7 +1153,8 @@ form textarea {
 .right-section .phone, .right-section .search-form {
   display: inline-block;
   vertical-align: middle;
-  position: relative; }
+  position: relative; 
+  color: #2d2d2d;}
 @media screen and (max-width: 640px) {
   .right-section .phone {
     display: none; } }
