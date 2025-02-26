@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Application</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        form { max-width: 400px; margin: auto; }
+        label, input, select, textarea { display: block; width: 100%; margin-bottom: 10px; }
+        canvas { border: 1px solid #000; cursor: crosshair; }
+        button { margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Loan Application Form</h2>
+    <form id="loanForm">
+        <label>First Name: <input type="text" name="first_name" required></label>
+        <label>Middle Name: <input type="text" name="middle_name"></label>
+        <label>Last Name: <input type="text" name="last_name" required></label>
+        <label>Phone: <input type="tel" name="phone" required></label>
+        <label>Address: <textarea name="address" required></textarea></label>
+        <label>Loan Amount: <input type="number" name="loan_amount" required></label>
+        <label>Purpose: <textarea name="purpose" required></textarea></label>
+        <label>Pay Out Period:
+            <select name="pay_out" required>
+                <option value="1">1 Month</option>
+                <option value="2">2 Months</option>
+                <option value="3">3 Months</option>
+            </select>
+        </label>
+        <label>Job Title: <input type="text" name="job_title" required></label>
+        <label>Place of Work: <input type="text" name="place_of_work" required></label>
+        <label>Upload ID: <input type="file" id="id_upload" accept="image/*,application/pdf" required></label>
+        <label>Signature:</label>
+        <canvas id="signaturePad" width="300" height="100"></canvas>
+        <button type="button" id="clearSignature">Clear</button>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        const supabase = supabase.createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_ANON_KEY);
+        
+        const canvas = document.getElementById("signaturePad");
+        const ctx = canvas.getContext("2d");
+        let drawing = false;
+
+        canvas.addEventListener("mousedown", (event) => {
+            drawing = true;
+            ctx.beginPath();
+            ctx.moveTo(event.offsetX, event.offsetY);
+        });
+
+        canvas.addEventListener("mouseup", () => drawing = false);
+
+        canvas.addEventListener("mousemove", (event) => {
+            if (!drawing) return;
+            ctx.lineTo(event.offsetX, event.offsetY);
+            ctx.stroke();
+        });
+        
+        document.getElementById("clearSignature").addEventListener("click", () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+        
+        document.getElementById("loanForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(this);
+            const idFile = formData.get("id_upload");
+            const signatureData = canvas.toDataURL();
+            
+            const { data: idUploadData, error: idUploadError } = await supabase
+                .storage.from("loan_applications").upload(`ids/${Date.now()}_${idFile.name}`, idFile);
+                
+            if (idUploadError) {
+                alert("Error uploading ID");
+                return;
+            }
+            
+            const { data, error } = await supabase.from("loan_applications").insert([
+                {
+                    first_name: formData.get("first_name"),
+                    middle_name: formData.get("middle_name"),
+                    last_name: formData.get("last_name"),
+                    phone: formData.get("phone"),
+                    address: formData.get("address"),
+                    loan_amount: parseFloat(formData.get("loan_amount")),
+                    purpose: formData.get("purpose"),
+                    pay_out: parseInt(formData.get("pay_out")),
+                    job_title: formData.get("job_title"),
+                    place_of_work: formData.get("place_of_work"),
+                    id_url: idUploadData.path,
+                    signature: signatureData
+                }
+            ]);
+            
+            if (error) {
+                alert("Error submitting application");
+            } else {
+                alert("Application submitted successfully!");
+                this.reset();
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        });
+    </script>
+</body>
+</html>
