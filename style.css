@@ -229,6 +229,14 @@ ul, ol {
   margin: 0;
   padding-left: 0; }
 
+.homeLI{
+      text-align: left;
+      list-style-position: outside;
+      margin-left: 50px;
+      line-height: 1.25em;
+      margin-bottom: 7px;
+}
+
 a {
   text-decoration: none;
   color: #0f75bd; }
