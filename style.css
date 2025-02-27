@@ -1316,7 +1316,8 @@ form textarea {
         font-weight: 300; }
     .hero-slider .slide-content p {
       margin-bottom: 20px;
-      font-size: 1em; }
+      font-size: 1em;
+      line-height: 1.5em;}
   .hero-slider .flex-control-nav {
     list-style: none;
     position: absolute;
