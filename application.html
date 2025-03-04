@@ -4,14 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login with Google</title>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             margin-top: 50px;
         }
-        #login-container, #user-info {
+        #user-info {
             display: none;
         }
         img {
@@ -24,56 +23,61 @@
 
     <div id="login-container">
         <h2>Login with Gmail</h2>
-        <div id="g_id_onload"
-             data-client_id="447858503778-1vocho08qldufbassm9u3krutrickhvc.apps.googleusercontent.com"
-             data-context="signin"
-             data-ux_mode="popup"
-             data-callback="handleCredentialResponse"
-             data-auto_prompt="false">
-        </div>
-
-        <div class="g_id_signin"
-             data-type="standard"
-             data-shape="rectangular"
-             data-theme="outline"
-             data-text="signin_with"
-             data-size="large">
-        </div>
+        <button onclick="loginWithGoogle()">Login with Google</button>
     </div>
 
     <div id="user-info">
         <h2>Welcome, <span id="user-name"></span>!</h2>
         <img id="user-image" src="" alt="User Image" width="100">
         <p>Email: <span id="user-email"></span></p>
-        <button onclick="signOut()">Logout</button>
+        <button onclick="logout()">Logout</button>
     </div>
 
     <script>
-        function handleCredentialResponse(response) {
-            const jwt = response.credential;
-            const data = parseJwt(jwt);
-            
-            document.getElementById("user-name").textContent = data.name;
-            document.getElementById("user-email").textContent = data.email;
-            document.getElementById("user-image").src = data.picture;
-            
-            document.getElementById("login-container").style.display = "none";
-            document.getElementById("user-info").style.display = "block";
+        const CLIENT_ID = "447858503778-1vocho08qldufbassm9u3krutrickhvc.apps.googleusercontent.com";
+        const REDIRECT_URI = "https://cashew.ph"; // e.g., http://localhost or https://yourdomain.com
+        const AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?
+            client_id=${CLIENT_ID}
+            &redirect_uri=${encodeURIComponent(REDIRECT_URI)}
+            &response_type=token
+            &scope=email%20profile
+            &include_granted_scopes=true`;
+
+        function loginWithGoogle() {
+            window.location.href = AUTH_URL;
         }
 
-        function parseJwt(token) {
-            let base64Url = token.split('.')[1];
-            let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            let jsonPayload = decodeURIComponent(atob(base64).split('').map(c => 
-                '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
-            return JSON.parse(jsonPayload);
+        function getTokenFromUrl() {
+            const hash = window.location.hash.substring(1);
+            const params = new URLSearchParams(hash);
+            return params.get("access_token");
         }
 
-        function signOut() {
-            google.accounts.id.disableAutoSelect();
-            document.getElementById("user-info").style.display = "none";
-            document.getElementById("login-container").style.display = "block";
+        async function fetchUserInfo(token) {
+            const response = await fetch("https://www.googleapis.com/oauth2/v2/userinfo", {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            return response.json();
         }
+
+        async function checkLogin() {
+            const token = getTokenFromUrl();
+            if (token) {
+                const userInfo = await fetchUserInfo(token);
+                document.getElementById("user-name").textContent = userInfo.name;
+                document.getElementById("user-email").textContent = userInfo.email;
+                document.getElementById("user-image").src = userInfo.picture;
+
+                document.getElementById("login-container").style.display = "none";
+                document.getElementById("user-info").style.display = "block";
+            }
+        }
+
+        function logout() {
+            window.location.href = REDIRECT_URI; // Clears token and reloads the login page
+        }
+
+        checkLogin(); // Check if user is already logged in
     </script>
 
 </body>
