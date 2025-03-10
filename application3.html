@@ -50,15 +50,51 @@
             }
         }
 
+        async function submitForm(event) {
+            event.preventDefault();
+
+            const formData = {
+                first_name: document.getElementById("first_name").value,
+                middle_name: document.getElementById("middle_name").value,
+                last_name: document.getElementById("last_name").value,
+                email: document.getElementById("email").value,
+                loan_amount: document.getElementById("loan_amount").value,
+                promo_code: document.getElementById("promo_code").value
+            };
+
+            try {
+                const response = await fetch("https://https://bydlending.retool.com/api/v2/loan_applications", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer retool_01jnvnrhcdv8gtgma8qy08gn8z"
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    alert("Application submitted successfully!");
+                    document.getElementById("loanForm").reset();
+                } else {
+                    const errorData = await response.json();
+                    alert("Submission failed: " + errorData.message);
+                }
+            } catch (error) {
+                alert("Error submitting the form: " + error.message);
+            }
+        }
+
         window.onload = getPromoCodeFromUrl;
     </script>
 </head>
 <body>
 
     <h2>Loan Application Form</h2>
-    <form action="submit-loan.php" method="POST">
+    <form id="loanForm" onsubmit="submitForm(event)">
         <label for="name">Full Name:</label>
-        <input type="text" id="name" name="name" required>
+        <input type="text" id="first_name" name="first_name" required>
+        <input type="text" id="middle_name" name="middle_name">
+        <input type="text" id="last_name" name="last_name" required>
 
         <label for="email">Email Address:</label>
         <input type="email" id="email" name="email" required>
