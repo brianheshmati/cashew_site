@@ -42,6 +42,7 @@
         }
     </style>
     <script>
+        let signaturePad;
         function getPromoCodeFromUrl() {
             const params = new URLSearchParams(window.location.search);
             const promoCode = params.get("promo");
@@ -49,9 +50,38 @@
                 document.getElementById("promo_code").value = promoCode;
             }
         }
+        function initSignaturePad() {
+            const canvas = document.getElementById("signature-pad");
+            const ctx = canvas.getContext("2d");
+            let drawing = false;
 
+            canvas.addEventListener("mousedown", () => drawing = true);
+            canvas.addEventListener("mouseup", () => drawing = false);
+            canvas.addEventListener("mousemove", draw);
+            canvas.addEventListener("touchstart", () => drawing = true);
+            canvas.addEventListener("touchend", () => drawing = false);
+            canvas.addEventListener("touchmove", draw);
+
+            function draw(event) {
+                if (!drawing) return;
+                const rect = canvas.getBoundingClientRect();
+                const x = (event.clientX || event.touches[0].clientX) - rect.left;
+                const y = (event.clientY || event.touches[0].clientY) - rect.top;
+                ctx.lineTo(x, y);
+                ctx.stroke();
+            }
+
+            signaturePad = ctx;
+        }
+
+        function clearSignature() {
+            signaturePad.clearRect(0, 0, 400, 150);
+        }
         async function submitForm(event) {
             event.preventDefault();
+
+            const canvas = document.getElementById("signature-pad");
+            const signatureData = canvas.toDataURL("image/png"); // Convert to Base64
 
             const formData = {
                 first_name: document.getElementById("first_name").value,
@@ -62,7 +92,8 @@
                 phone: "p0",
                 email: "e0",
                 term: 0,
-                promo_code: document.getElementById("promo_code").value
+                promo_code: document.getElementById("promo_code").value,
+                signature: signatureData
             };
 
             try {
@@ -81,6 +112,7 @@
                 if (response.ok) {
                     alert("Application submitted successfully!");
                     document.getElementById("loanForm").reset();
+                    clearSignature();
                 } else {
                     const errorData = await response.json();
                     alert("Submission failed: " + (errorData.message || "Unknown error"));
@@ -90,7 +122,10 @@
             }
         }
 
-        window.onload = getPromoCodeFromUrl;
+        window.onload = function() {
+            getPromoCodeFromUrl();
+            initSignaturePad();
+        };
     </script>
 </head>
 <body>
@@ -110,6 +145,10 @@
 
         <label for="promo_code">Promo Code:</label>
         <input type="text" id="promo_code" name="promo_code" readonly>
+
+        <label>Signature:</label>
+        <canvas id="signature-pad"></canvas>
+        <button type="button" class="clear-btn" onclick="clearSignature()">Clear Signature</button>
 
         <button type="submit">Apply for Loan</button>
     </form>
