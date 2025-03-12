@@ -1,0 +1,23 @@
+body {
+    color: #768089;
+    font-family: "Roboto Condensed", "Open Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: normal;
+}
+.section-title, .section-subtitle {
+    font-weight: 300;
+    margin-bottom: 50px;
+    text-align: center;
+    display: block;
+  }
+h2 {
+    display: block;
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    unicode-bidi: isolate;
+  }

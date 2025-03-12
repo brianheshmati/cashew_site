@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="application_style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loan Application Form</title>
     <style>
@@ -10,11 +11,11 @@
             margin: 20px;
         }
         form {
-            max-width: 400px;
             margin: auto;
             padding: 20px;
             border: 1px solid #ddd;
             border-radius: 8px;
+            background-color: #2d2d2d;
         }
         label {
             font-weight: bold;
@@ -89,8 +90,8 @@
                 last_name: document.getElementById("last_name").value,
                 email: document.getElementById("email").value,
                 amount: document.getElementById("loan_amount").value,
-                phone: "p0",
-                email: "e0",
+                phone: document.getElementById("phone").value,
+                email: document.getElementById("email").value,
                 term: 0,
                 promo_code: document.getElementById("promo_code").value,
                 signature: signatureData
@@ -129,29 +130,29 @@
     </script>
 </head>
 <body>
-
-    <h2>Loan Application Form</h2>
+    <div>
+    <h2 class="section-title text-left">Loan Application Form</h2>
     <form id="loanForm" onsubmit="submitForm(event)">
-        <label for="name">Full Name:</label>
-        <input type="text" id="first_name" name="first_name" required>
-        <input type="text" id="middle_name" name="middle_name">
-        <input type="text" id="last_name" name="last_name" required>
 
-        <label for="email">Email Address:</label>
-        <input type="email" id="email" name="email" required>
+        <input type="text" id="first_name" name="first_name" placeholder="First name" required>
+        <input type="text" id="middle_name" name="middle_name" placeholder="Middle name">
+        <input type="text" id="last_name" name="last_name" placeholder="Last name" required>
 
-        <label for="loan_amount">Loan Amount:</label>
-        <input type="number" id="loan_amount" name="loan_amount" required>
+        <input type="phone" id="phone" name="phone" placeholder="Phone number" required>
 
-        <label for="promo_code">Promo Code:</label>
-        <input type="text" id="promo_code" name="promo_code" readonly>
+       <input type="email" id="email" name="email" placeholder="Email" required>
+
+        <input type="number" id="loan_amount" name="loan_amount" placeholder="Loan amount" required>
+
+        <input type="text" id="promo_code" name="promo_code" placeholder="Promo code">
 
         <label>Signature:</label>
         <canvas id="signature-pad"></canvas>
-        <button type="button" class="clear-btn" onclick="clearSignature()">Clear Signature</button>
+        <button type="button" class="clear-btn" onclick="clearSignature()" style="background: gold;color: #2d2d2d;">Clear Signature</button>
 
         <button type="submit">Apply for Loan</button>
-    </form>
 
+    </form>
+</div>
 </body>
 </html>
