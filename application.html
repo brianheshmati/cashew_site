@@ -262,7 +262,7 @@
 					if (response.ok) {
 						alert("Application submitted successfully!");
 						document.getElementById("loanForm").reset();
-						clearSignature();
+						//clearSignature();
 					} else {
 						const errorData = await response.json();
 						alert("Submission failed: " + (errorData.message || "Unknown error"));
@@ -274,7 +274,7 @@
 	
 			window.onload = function() {
 				getPromoCodeFromUrl();
-				initSignaturePad();
+				//initSignaturePad();
 			};
 		</script>
 		
