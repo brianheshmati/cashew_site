@@ -144,19 +144,19 @@
        <input type="email" id="email" name="email" placeholder="Email" required>
 		
 	   <label for="loan_amount">
-            Loan amount (between 5,000 and 20,000):
+            Loan amount (minimum 5,000):
        </label>
-        <input type="number" id="loan_amount" name="loan_amount" value="10000" placeholder="Loan amount" min="5000" max="20000" required>
+        <input type="number" id="loan_amount" name="loan_amount" value="10000" placeholder="Loan amount" min="5000" required>
 
         <input type="text" id="promo_code" name="promo_code" placeholder="Promo code">
-
+<!--
         <label style="font-weight: bold;
 		margin: 7px 0;
 		display: block;
 		font-size: 1.2em;">Signature:</label>
         <canvas id="signature-pad" style="background-color: #fff;width: 100%; border: 1px solid #ccc; max-height: 200px;"></canvas>
         <button type="button" class="clear-btn" onclick="clearSignature()" style="background: gold;color: #2d2d2d;">Clear Signature</button>
-
+	-->
         <button type="submit">Apply for Loan</button>
 
     </form>
