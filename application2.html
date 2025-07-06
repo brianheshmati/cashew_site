@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cashew Philippines - Loan Application</title>
+    <title>Cashew - Loan Application</title>
     <link rel="icon" href="https://www.cashew.ph/images/cashew_logo.png" type="image/png">
     <style>
         * {
@@ -701,9 +701,9 @@
                     lastName: document.getElementById('lastName').value,
                     email: document.getElementById('email').value,
                     phone: document.getElementById('phone').value,
-                    dateOfBirth: document.getElementById('dateOfBirth').value,
+                    dob: document.getElementById('dateOfBirth').value,
                     address: document.getElementById('address').value,
-                    promoCode: document.getElementById('promoCode').value
+                    promo_code: document.getElementById('promoCode').value
                 },
                 employmentInfo: {
                     employmentStatus: document.getElementById('employmentStatus').value,
@@ -723,11 +723,11 @@
             
             try {
                 // Replace with your actual API endpoint
-                const response = await fetch('https://gukvlegqhhifsnsymmbx.supabase.co/functions/v1/submit-loan-application', {
+                const response = await fetch('https://fklaxhpublxhgxcajuyu.supabase.co/functions/v1/loan_application_submission', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd1a3ZsZWdxaGhpZnNuc3ltbWJ4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMzA4MzksImV4cCI6MjA1NjYwNjgzOX0.zN4EDx-ZJRf7nQpG4Z-U7TmX5P2ZiniWelpWcw-w6_8',
+                        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZrbGF4aHB1Ymx4aGd4Y2FqdXl1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzEwNDcyODAsImV4cCI6MjA0NjYyMzI4MH0.8c7FWSRsw0PfrZmq9dzVEq5wTl668AG0ww7jf9tYIAo',
                         'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd1a3ZsZWdxaGhpZnNuc3ltbWJ4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMzA4MzksImV4cCI6MjA1NjYwNjgzOX0.zN4EDx-ZJRf7nQpG4Z-U7TmX5P2ZiniWelpWcw-w6_8'
                     },
                     body: JSON.stringify(formData)
