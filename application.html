@@ -149,6 +149,7 @@
         <input type="number" id="loan_amount" name="loan_amount" value="10000" placeholder="Loan amount" min="5000" required>
 
         <input type="text" id="promo_code" name="promo_code" placeholder="Promo code">
+		<input type="text" id="referral" name="referral" placeholder="Referral code">
 <!--
         <label style="font-weight: bold;
 		margin: 7px 0;
@@ -191,8 +192,12 @@
 			function getPromoCodeFromUrl() {
 				const params = new URLSearchParams(window.location.search);
 				const promoCode = params.get("promo");
+				const referral = params.get("referral");
 				if (promoCode) {
 					document.getElementById("promo_code").value = promoCode;
+				}
+				if (referral) {
+					document.getElementById("referral").value = referral;
 				}
 			}
 			
@@ -242,7 +247,8 @@
 					phone: document.getElementById("phone").value,
 					email: document.getElementById("email").value,
 					term: 0,
-					promo_code: document.getElementById("promo_code").value
+					promo_code: document.getElementById("promo_code").value,
+					referral: document.getElementById("referral").value
 					//signature: signatureData
 				};
 	
