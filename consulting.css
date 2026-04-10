@@ -47,7 +47,15 @@ body {
   font-weight: 700;
 }
 
-.brand img { width: 40px; height: 40px; }
+.brand img { width: 40px; height: 40px; object-fit: contain; }
+
+.tagline {
+  margin: 0;
+  color: #f0c86e;
+  font-weight: 600;
+  font-size: .95rem;
+  white-space: nowrap;
+}
 
 nav { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
 nav a { color: #d5ddf3; text-decoration: none; font-weight: 500; }
@@ -131,5 +139,6 @@ figcaption span { display: block; color: var(--muted); font-size: .95rem; }
   .two-col,
   .cta-wrap { grid-template-columns: 1fr; display: grid; }
   .cta-wrap { gap: 1rem; }
+  .tagline { display: none; }
   nav { display: none; }
 }
