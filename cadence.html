@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadence — Time &amp; Attendance with Peso Payroll | Cashew Solutions, OPC</title>
+  <meta name="description" content="Cadence by Cashew Solutions: shift tracking, manager approvals, and peso payroll for Philippine BPO teams. Per-seat subscription billing, cancel anytime." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232457f5'/%3E%3Crect x='6' y='12' width='4.6' height='9' rx='2.3' fill='%23FFFFFF'/%3E%3Crect x='13.7' y='6.5' width='4.6' height='19' rx='2.3' fill='%23FFFFFF'/%3E%3Crect x='21.4' y='9' width='4.6' height='14' rx='2.3' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b1220;
+      --surface: #ffffff;
+      --text: #172133;
+      --muted: #5b677d;
+      --primary: #2457f5;
+      --primary-dark: #1d46c4;
+      --border: #dfe5f1;
+      --gold: #f0c86e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background: #f5f8ff;
+      line-height: 1.6;
+    }
+    a { color: inherit; }
+    .container { width: min(1120px, calc(100% - 2rem)); margin: 0 auto; }
+
+    .site-header { background: var(--bg); position: sticky; top: 0; z-index: 10; }
+    .nav-wrap { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; gap: 1rem; }
+    .brand { display: inline-flex; align-items: center; gap: .7rem; color: #fff; text-decoration: none; font-weight: 700; }
+    .mark {
+      width: 40px; height: 40px; border-radius: 10px; background: var(--primary);
+      display: flex; align-items: center; justify-content: center; flex: none;
+    }
+    .mark svg { width: 62%; height: 62%; fill: #fff; }
+    .brand-by { display: block; font-size: .7rem; font-weight: 500; color: #aebde7; margin-top: -3px; }
+    nav { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    nav a { color: #d5ddf3; text-decoration: none; font-weight: 500; }
+    nav a:hover { color: #fff; }
+
+    .btn {
+      display: inline-block; background: var(--primary); color: #fff; text-decoration: none;
+      font-weight: 600; padding: .75rem 1.1rem; border-radius: 10px;
+    }
+    .btn:hover { background: var(--primary-dark); }
+    .btn-outline { background: transparent; border: 1px solid #8ea4da; color: #f5f8ff; }
+    .btn-outline:hover { background: rgba(255,255,255,.06); }
+    .btn-outline-dark { background: transparent; border: 1px solid #b9c6e4; color: var(--primary); }
+    .btn-outline-dark:hover { border-color: var(--primary); background: #fff; }
+
+    .hero {
+      background: linear-gradient(150deg, #0b1220 0%, #101c35 60%, #1f3f8a 100%);
+      color: #f5f8ff; padding: 4.5rem 0; text-align: center;
+    }
+    .eyebrow { text-transform: uppercase; letter-spacing: .08em; font-size: .8rem; color: #aebde7; font-weight: 600; }
+    .hero h1 { font-size: clamp(2rem, 4.5vw, 3.2rem); line-height: 1.2; margin: .6rem auto 1rem; font-weight: 800; max-width: 800px; }
+    .hero .lead { color: #d5ddf3; font-size: 1.08rem; max-width: 640px; margin: 0 auto; }
+    .hero-actions { display: flex; gap: .8rem; margin-top: 1.6rem; justify-content: center; flex-wrap: wrap; }
+    .hero .fineprint { margin-top: 1.1rem; font-size: .82rem; color: #aebde7; }
+
+    .section { padding: 4rem 0; }
+    .section-alt { background: #eef3ff; }
+    .section h2 { font-size: 2rem; margin-top: .4rem; }
+    .section-intro { color: var(--muted); max-width: 700px; margin-top: .6rem; }
+
+    .grid { display: grid; gap: 1rem; margin-top: 1.75rem; }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+    .card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+      padding: 1.4rem; box-shadow: 0 10px 24px rgba(12, 36, 86, 0.06);
+    }
+    .card .icon {
+      width: 40px; height: 40px; border-radius: 10px; background: #eef3ff; color: var(--primary);
+      display: flex; align-items: center; justify-content: center; font-size: 1.15rem; font-weight: 700; margin-bottom: .8rem;
+    }
+    .card h3 { margin: 0 0 .4rem; font-size: 1.1rem; }
+    .card p { margin: 0; color: var(--muted); font-size: .95rem; }
+
+    .plan { display: flex; flex-direction: column; position: relative; }
+    .plan.popular { border: 2px solid var(--primary); }
+    .plan .badge {
+      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+      background: var(--gold); color: #172133; font-size: .72rem; font-weight: 700;
+      border-radius: 999px; padding: .2rem .9rem; white-space: nowrap;
+    }
+    .plan .tagline { font-size: .88rem; color: var(--muted); margin-top: .2rem; }
+    .plan .price { font-size: 2rem; font-weight: 800; margin-top: 1rem; }
+    .plan .price span { font-size: .9rem; font-weight: 400; color: var(--muted); }
+    .plan ul { list-style: none; margin: 1.1rem 0 1.3rem; flex: 1; }
+    .plan li { font-size: .9rem; padding: .28rem 0 .28rem 1.6rem; position: relative; }
+    .plan li::before { content: '✓'; position: absolute; left: 0; color: var(--primary); font-weight: 700; }
+    .plan .btn, .plan .btn-outline-dark { text-align: center; }
+    .pricing-note { margin-top: 1.6rem; font-size: .85rem; color: var(--muted); text-align: center; }
+    .save-pill {
+      display: inline-block; background: #fdf3dd; color: #8a6215;
+      font-size: .8rem; font-weight: 700; border-radius: 999px; padding: .3rem .95rem; margin-top: .9rem;
+    }
+
+    .card p a { color: var(--primary); font-weight: 600; text-decoration: none; }
+    .card p a:hover { text-decoration: underline; }
+
+    details {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 1rem 1.25rem; margin-top: .75rem; box-shadow: 0 10px 24px rgba(12, 36, 86, 0.04);
+    }
+    summary { font-weight: 600; font-size: .97rem; cursor: pointer; }
+    details p { margin-top: .6rem; font-size: .92rem; color: #3c4964; }
+
+    .cta { background: #122a66; color: #fff; }
+    .cta-wrap { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .cta h2 { margin: 0; }
+    .cta p { color: #dae5ff; margin-top: .4rem; }
+
+    .site-footer { background: var(--bg); color: #d5ddf3; padding: 1.2rem 0; }
+    .footer-wrap { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; align-items: center; }
+    .footer-wrap p { margin: 0; font-size: .92rem; }
+    .footer-links { display: inline-flex; gap: .75rem; }
+    .footer-links a { color: #d5ddf3; text-decoration: none; font-weight: 500; }
+    .footer-links a:hover { color: #fff; }
+
+    @media (max-width: 960px) {
+      .grid-3, .cta-wrap { grid-template-columns: 1fr; display: grid; }
+      nav { display: none; }
+      .hero { padding: 3.2rem 0; }
+      .section { padding: 3rem 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#">
+        <span class="mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="4.2" y="8.5" width="3.6" height="7" rx="1.8"/><rect x="10.2" y="4.5" width="3.6" height="15" rx="1.8"/><rect x="16.2" y="6.5" width="3.6" height="11" rx="1.8"/></svg>
+        </span>
+        <span>
+          Cadence
+          <span class="brand-by">by Cashew Solutions, OPC</span>
+        </span>
+      </a>
+      <nav>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#billing">Billing</a>
+        <a href="#faq">FAQ</a>
+        <a href="index.html">Cashew home</a>
+        <a href="https://cadence.cashew.ph" class="btn">Open the app</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">Time &amp; Attendance · Approvals · Peso Payroll</p>
+        <h1>Track shifts. Approve hours. Pay on time.</h1>
+        <p class="lead">
+          Cadence is time &amp; attendance built for Philippine BPO teams — agents clock in and out,
+          managers review and approve hours, and payroll runs pay out in pesos via GCash, card, or bank.
+        </p>
+        <div class="hero-actions">
+          <a href="https://cadence.cashew.ph" class="btn">Start free — no card required</a>
+          <a href="#pricing" class="btn btn-outline">See pricing</a>
+        </div>
+        <p class="fineprint">Free for up to 5 agents. Paid plans start at ₱300 per agent per month.</p>
+      </div>
+    </section>
+
+    <section id="features" class="section">
+      <div class="container">
+        <p class="eyebrow" style="color: var(--primary);">Features</p>
+        <h2>Everything a BPO floor needs to run on time</h2>
+        <div class="grid grid-3">
+          <article class="card">
+            <div class="icon">⏱</div>
+            <h3>Shift clock in / out</h3>
+            <p>Agents punch in and out from any phone or desktop, with break minutes and shift notes on every entry.</p>
+          </article>
+          <article class="card">
+            <div class="icon">✓</div>
+            <h3>Manager approvals</h3>
+            <p>Every shift goes to a review queue. Approve, or send it back with comments — agents can fix and resubmit.</p>
+          </article>
+          <article class="card">
+            <div class="icon">💬</div>
+            <h3>Comment threads</h3>
+            <p>Clarify a shift right on the entry. Feedback stays attached to the hours it's about.</p>
+          </article>
+          <article class="card">
+            <div class="icon">📊</div>
+            <h3>Reports &amp; CSV export</h3>
+            <p>Approved hours by agent and period, ready for payroll or client billing. Export anytime.</p>
+          </article>
+          <article class="card">
+            <div class="icon">₱</div>
+            <h3>Peso payroll runs</h3>
+            <p>Turn approved hours into payout drafts per agent, tracked from draft to paid — GCash, card, or bank.</p>
+          </article>
+          <article class="card">
+            <div class="icon">🔑</div>
+            <h3>Join-code onboarding</h3>
+            <p>One 6-character code brings your whole team in. Agents join in seconds; you stay in control of roles.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="section section-alt">
+      <div class="container">
+        <p class="eyebrow" style="color: var(--primary);">Pricing</p>
+        <h2>Simple per-seat pricing</h2>
+        <p class="section-intro">
+          Priced per <strong>active agent seat, per month</strong>. Managers are free and don't count
+          against your seat limit. Start free and upgrade when your floor grows.
+        </p>
+        <span class="save-pill">Pay annually and save 10%</span>
+
+        <div class="grid grid-3">
+          <article class="card plan">
+            <h3>Free</h3>
+            <p class="tagline">Get started with a small team.</p>
+            <p class="price">₱0 <span>/ forever</span></p>
+            <ul>
+              <li>Up to 5 agent seats</li>
+              <li>Shift clock in / out with breaks</li>
+              <li>Manager review &amp; approvals</li>
+              <li>30-day shift history</li>
+              <li>Join-code team onboarding</li>
+              <li>Community support</li>
+            </ul>
+            <a class="btn btn-outline-dark" href="https://cadence.cashew.ph">Start free</a>
+          </article>
+
+          <article class="card plan popular">
+            <span class="badge">Most popular</span>
+            <h3>Growth</h3>
+            <p class="tagline">For growing floors that need approvals and payroll.</p>
+            <p class="price">₱500 <span>/ agent / month</span></p>
+            <ul>
+              <li>Up to 20 agent seats</li>
+              <li>Everything in Free</li>
+              <li>Unlimited shift history</li>
+              <li>Approval comment threads</li>
+              <li>Hours reports &amp; CSV export</li>
+              <li>Payroll with GCash &amp; card payouts</li>
+              <li>Priority email support</li>
+            </ul>
+            <a class="btn" href="https://cadence.cashew.ph">Choose Growth</a>
+          </article>
+
+          <article class="card plan">
+            <h3>Business</h3>
+            <p class="tagline">Volume pricing for larger BPO operations.</p>
+            <p class="price">₱300 <span>/ agent / month</span></p>
+            <ul>
+              <li>Up to 100 agent seats</li>
+              <li>Everything in Growth</li>
+              <li>Volume per-seat pricing</li>
+              <li>Bank transfer payouts</li>
+              <li>Advanced reports &amp; analytics</li>
+              <li>Dedicated onboarding &amp; support</li>
+            </ul>
+            <a class="btn btn-outline-dark" href="https://cadence.cashew.ph">Choose Business</a>
+          </article>
+        </div>
+        <p class="pricing-note">All prices are in Philippine pesos (PHP) and exclusive of applicable taxes.</p>
+      </div>
+    </section>
+
+    <section id="billing" class="section">
+      <div class="container">
+        <p class="eyebrow" style="color: var(--primary);">Billing</p>
+        <h2>How billing works</h2>
+        <p class="section-intro">No surprises — three things to know before you subscribe.</p>
+
+        <div class="grid grid-3">
+          <article class="card">
+            <div class="icon">🔒</div>
+            <h3>Secure card checkout</h3>
+            <p>Payments are handled by <strong>Xendit</strong>, a licensed, PCI-DSS-compliant payment processor. Your card details never touch our servers.</p>
+          </article>
+          <article class="card">
+            <div class="icon">🔁</div>
+            <h3>Renews automatically</h3>
+            <p>Your subscription renews each cycle — monthly, or yearly on annual plans — and your card is charged based on your active agent seats. You get an email receipt for every charge.</p>
+          </article>
+          <article class="card">
+            <div class="icon">👋</div>
+            <h3>Cancel anytime</h3>
+            <p>Change or cancel your plan in the app whenever you like — future charges stop right away, and you keep access through what you've already paid for. Questions? <a href="mailto:billing@cashew.ph">billing@cashew.ph</a></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section section-alt">
+      <div class="container">
+        <p class="eyebrow" style="color: var(--primary);">FAQ</p>
+        <h2>Common questions</h2>
+
+        <details>
+          <summary>What counts as an "active agent seat"?</summary>
+          <p>An agent account that's active in your workspace during the billing period. Deactivated agents don't count, and manager accounts are always free.</p>
+        </details>
+        <details>
+          <summary>Will I be charged automatically every cycle?</summary>
+          <p>Yes. You consent to recurring billing once, when you subscribe. After that, each cycle is charged automatically to your saved card and you get an email receipt. You can cancel anytime and no further charges are made.</p>
+        </details>
+        <details>
+          <summary>Is my card information safe?</summary>
+          <p>Card details go directly to Xendit, a PCI-DSS-compliant payment processor licensed in the Philippines. Cashew never sees or stores your card number — we only keep a payment reference.</p>
+        </details>
+        <details>
+          <summary>Can I switch between monthly and annual billing?</summary>
+          <p>Yes, from the Billing page. Annual billing is 10% cheaper and renews once every 12 months.</p>
+        </details>
+        <details>
+          <summary>Does the free plan need a card?</summary>
+          <p>No. The Free plan needs no payment details at all — you only add a card if you upgrade to Growth or Business.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="section cta">
+      <div class="container cta-wrap">
+        <div>
+          <h2>Ready to run your floor on Cadence?</h2>
+          <p>Start free with up to 5 agents — no card required.</p>
+        </div>
+        <a href="https://cadence.cashew.ph" class="btn">Open the app</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-wrap">
+      <p>© 2026 Cashew Solutions, OPC. Cadence is a product of Cashew Solutions, OPC.</p>
+      <p class="footer-links">
+        <a href="index.html">Cashew home</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms-and-refund.html">Terms &amp; Refund Policy</a>
+        <a href="mailto:support@cashew.ph">support@cashew.ph</a>
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
