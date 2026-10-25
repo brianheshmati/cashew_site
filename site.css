@@ -52,10 +52,8 @@ img { max-width: 100%; display: block; }
 /* Header */
 .header { position: sticky; top: 0; z-index: 40; background: rgba(255, 250, 232, .94); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
 .bar { display: flex; align-items: center; gap: 24px; padding: 10px var(--edge); min-height: 68px; }
-.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; font-size: 18px; letter-spacing: -.02em; min-height: 44px; }
-.brand img { width: auto; height: 34px; }
-.brand small { display: block; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); line-height: 1.1; }
-.brand b { display: block; line-height: 1.1; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; font-size: 17px; letter-spacing: -.02em; min-height: 44px; }
+.brand img { width: 40px; height: 40px; object-fit: contain; }
 .nav { display: none; gap: 6px; margin-inline: auto; }
 .nav a, .menu nav a { font-size: 14px; font-weight: 600; padding: 10px 12px; min-height: 44px; display: inline-flex; align-items: center; border-radius: 8px; text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 6px; }
 .nav a:hover, .menu nav a:hover, .nav a[aria-current="page"] { text-decoration-color: var(--sun-strong); text-decoration-thickness: 2px; }

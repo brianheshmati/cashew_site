@@ -56,7 +56,9 @@
         v('message')
       ].filter(function (l, i) { return l !== '' || i === 4; });
       var subject = 'Project enquiry' + (v('company') ? ' from ' + v('company') : '');
-      window.location.href = 'mailto:' + form.getAttribute('data-to') + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
+      var url = 'mailto:' + form.getAttribute('data-to') + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
+      form.setAttribute('data-last-mailto', url);
+      window.location.href = url;
       status.textContent = 'Your email app should open with the message ready to send. If it does not, email us directly at ' + form.getAttribute('data-to') + '.';
       status.className = 'form-status';
     });
